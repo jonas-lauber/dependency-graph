@@ -64,12 +64,16 @@ declare module 'dependency-graph' {
      */
     dependenciesOf(name: string, leavesOnly?: boolean): string[];
 
+		directDependenciesOf(name: string): string[];
+
     /**
      * Get an array containing the nodes that depend on the specified node (transitively). If leavesOnly is true, only nodes that do not have any dependants will be returned in the array.
      * @param {string} name
      * @param {boolean} leavesOnly
      */
     dependantsOf(name: string, leavesOnly?: boolean): string[];
+
+		directDependantsOf(name: string): string[];
 
     /**
      * Construct the overall processing order for the dependency graph. If leavesOnly is true, only nodes that do not depend on any other nodes will be returned.
