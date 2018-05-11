@@ -259,6 +259,30 @@ describe('DepGraph', function () {
     expect(graph.dependantsOf('d')).toEqual(['a']);
   });
 
+    it('should give direct dependencies and dependants only', function () {
+        var graph = new DepGraph();
+
+        graph.addNode('a');
+        graph.addNode('b');
+        graph.addNode('c');
+        graph.addNode('d');
+
+        graph.addDependency('a', 'd');
+        graph.addDependency('a', 'b');
+        graph.addDependency('b', 'c');
+        graph.addDependency('d', 'b');
+
+        expect(graph.directDependenciesOf('a')).toEqual(['d', 'b']);
+        expect(graph.directDependenciesOf('b')).toEqual(['c']);
+        expect(graph.directDependenciesOf('c')).toEqual([]);
+        expect(graph.directDependenciesOf('d')).toEqual(['b']);
+
+        expect(graph.directDependantsOf('a')).toEqual([]);
+        expect(graph.directDependantsOf('b')).toEqual(['a','d']);
+        expect(graph.directDependantsOf('c')).toEqual(['b']);
+        expect(graph.directDependantsOf('d')).toEqual(['a']);
+    });
+
   it('should be able to resolve the overall order of things', function () {
     var graph = new DepGraph();
 
