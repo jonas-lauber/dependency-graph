@@ -355,6 +355,30 @@ describe('DepGraph', function () {
     expect(graph.dependenciesOf('a')).toEqual(['b']);
   });
 
+  it('should still work after graph is cleaned', function () {
+      var graph = new DepGraph();
+
+      graph.addNode('a');
+      graph.addNode('b');
+      graph.addNode('c');
+      graph.addDependency('a', 'b');
+      graph.addDependency('b', 'c');
+
+      expect(graph.dependenciesOf('a')).toEqual(['c', 'b']);
+
+      graph.clear();
+
+      expect(graph.overallOrder()).toEqual([]);
+
+      graph.addNode('a');
+      graph.addNode('b');
+      graph.addNode('c');
+      graph.addDependency('a', 'b');
+      graph.addDependency('b', 'c');
+
+      expect(graph.dependenciesOf('a')).toEqual(['c', 'b']);
+  });
+
   it('should clone an empty graph', function () {
     var graph = new DepGraph();
     expect(graph.size()).toEqual(0);

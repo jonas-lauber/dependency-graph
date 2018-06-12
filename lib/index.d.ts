@@ -1,5 +1,7 @@
 declare module 'dependency-graph' {
   export class DepGraph<T> {
+    clear(): void;
+
     /**
      * The number of nodes in the graph.
      */
