@@ -1,4 +1,8 @@
+import {NodeName, nodeName} from 'dependency-graph';
+
 declare module 'dependency-graph' {
+  export type NodeName = number | string;
+
   export class DepGraph<T> {
     clear(): void;
 
@@ -12,32 +16,32 @@ declare module 'dependency-graph' {
      * @param {string} name
      * @param data
      */
-    addNode(name: string, data?: T): void;
+    addNode(name: NodeName, data?: T): void;
 
     /**
      * Remove a node from the graph.
      * @param {string} name
      */
-    removeNode(name: string): void;
+    removeNode(name: NodeName): void;
 
     /**
      * Check if a node exists in the graph.
      * @param {string} name
      */
-    hasNode(name: string): boolean;
+    hasNode(name: NodeName): boolean;
 
     /**
      * Get the data associated with a node (will throw an Error if the node does not exist).
      * @param {string} name
      */
-    getNodeData(name: string): T;
+    getNodeData(name: NodeName): T;
 
     /**
      * Set the data for an existing node (will throw an Error if the node does not exist).
      * @param {string} name
      * @param data
      */
-    setNodeData(name: string, data?: T): void;
+    setNodeData(name: NodeName, data?: T): void;
 
     /**
      * Add a dependency between two nodes (will throw an Error if one of the nodes does not exist).
@@ -64,23 +68,23 @@ declare module 'dependency-graph' {
      * @param {string} name
      * @param {boolean} leavesOnly
      */
-    dependenciesOf(name: string, leavesOnly?: boolean): string[];
+    dependenciesOf(name: NodeName, leavesOnly?: boolean): NodeName[];
 
-		directDependenciesOf(name: string): string[];
+		directDependenciesOf(name: NodeName): NodeName[];
 
     /**
      * Get an array containing the nodes that depend on the specified node (transitively). If leavesOnly is true, only nodes that do not have any dependants will be returned in the array.
      * @param {string} name
      * @param {boolean} leavesOnly
      */
-    dependantsOf(name: string, leavesOnly?: boolean): string[];
+    dependantsOf(name: NodeName, leavesOnly?: boolean): NodeName[];
 
-		directDependantsOf(name: string): string[];
+		directDependantsOf(name: NodeName): NodeName[];
 
     /**
      * Construct the overall processing order for the dependency graph. If leavesOnly is true, only nodes that do not depend on any other nodes will be returned.
      * @param {boolean} leavesOnly
      */
-    overallOrder(leavesOnly?: boolean): string[];
+    overallOrder(leavesOnly?: boolean): NodeName[];
   }
 }
